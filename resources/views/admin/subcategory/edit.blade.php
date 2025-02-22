@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="card">
-    <h2 class="text-center text-primary mt-4">Create Category</h2>
+    <h2 class="text-center text-primary mt-4">Edit Subcategory</h2>
       <div class="card-body">
           
           <form action="{{route('subcategory.update', $subcategory->id)}}" method="post" enctype="multipart/form-data">

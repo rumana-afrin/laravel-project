@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
@@ -33,8 +33,30 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $data = [
+            'category_id' => $request->input('category_id'),
+            'subcategory_id' => $request->input('subcategory_id'),
+            'name' => $request->input('name'),
+            'details' => $request->input('details'),
+            'price' => $request->input('price'),
+            'quantity' => $request->input('quantity'),
+            'discount' => $request->input('discount'),
+            'active' => $request->input('active'),
+            'status' => $request->input('status'),
+            'featured' => $request->input('featured'),
+        ];
+    
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('uploads', 'public'); 
+            $data['image'] = $path;
+        }
+    
+        $product = Product::create($data);
+    
+        
+        return redirect()->route('product.index')->with('success', 'content created successfully.');
     }
 
     /**
@@ -52,7 +74,7 @@ class ProductController extends Controller
     {
         $category = Category::all();
         $subcategory = Subcategory::all();
-        return view ('admin.product.edit',['category' => $category, 'subcategory' => $subcategory]);
+        return view ('admin.product.edit',['category' => $category, 'subcategory' => $subcategory, 'product' => $product]);
 
     }
 
@@ -69,6 +91,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route("product.index")->with("success", "Category updated success");
+
     }
 }

@@ -13,8 +13,6 @@
                     <a href="{{ route('product.create') }}" class="btn btn-success btn-sm" >
                         <i class="fa fa-plus" aria-hidden="true"></i> Add New content
                     </a>
-                    
-                   
                     <br />
                     <br />
                     <div class="table-responsive">

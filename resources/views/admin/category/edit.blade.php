@@ -10,6 +10,7 @@
            @method('PUt')
             <label>Category</label></br>
             <input type="text" name="name" id="name" class="form-control" value="{{$category->name}}"></br>
+
             <label>Current Image</label></br>
             @if($category->image && file_exists(public_path('storage/' . $category->image)))
             
@@ -17,6 +18,7 @@
             @else
             <p>No image found.</p>
             @endif
+            
             <input type="file" name="image" id="image" class="form-control" value=""></br>
            
             <input type="submit" value="Create" class="btn btn-primary"></br>

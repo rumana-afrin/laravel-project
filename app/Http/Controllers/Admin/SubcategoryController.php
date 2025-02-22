@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
@@ -83,5 +83,11 @@ class SubcategoryController extends Controller
         $subcategory->delete();
         return redirect()->route('subcategory.index')->with('success');
 
+    }
+
+    public function getSubcat($catid){
+        $sc = Subcategory::where("category_id",$catid)->pluck("name","id");
+        // dd($sc);
+        return response()->json($sc);
     }
 }

@@ -17,18 +17,21 @@ return new class extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->bigInteger("subcategory_id")->unsigned();
             $table->foreign('subcategory_id')->references('id')->on('subcategories');
-
             $table->string("name");
             $table->text("details");
-            $table->float("price",10,2);
+            $table->float("price", 10, 2);
             $table->string("image");
             $table->integer("quantity")->unsigned();
             $table->integer("discount")->unsigned()->default(0);
             $table->tinyInteger("active")->unsigned()->default(1);
-            $table->tinyInteger("status")->unsigned()->default(1);
+            $table->string("status")->default('pending'); // Removed unsigned() for string column
             $table->tinyInteger("featured")->unsigned()->default(0);
-
+            $table->timestamps();
         });
+        
+
+
+       
     }
 
     /**

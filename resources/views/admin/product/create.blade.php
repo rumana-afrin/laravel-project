@@ -9,7 +9,7 @@
       @csrf
 
       <label>Category</label></br>
-      <select class="form-select" name="category" id="category">
+      <select class="form-select" name="category_id" id="category_id">
         <option value="-1">Select</option>
         @forelse ($category as $row)
         <option value="{{ $row->id }}">{{ $row->name }}</option>
@@ -18,12 +18,8 @@
     </select>
 
       <label>Sub Category</label></br>
-      <select class="form-select" name="auther" id="subcategory">
-      <option value="-1">Select</option>
-        @forelse ($subcategory as $row)
-        <option value="{{$row->id}}">{{$row->name}}</option>
-        @empty
-        @endforelse
+      <select class="form-select" name="subcategory_id" id="subcategory_id">
+    
       </select>
 
       <label>Name</label></br>
@@ -42,10 +38,13 @@
       <input type="text" name="discount" id="address" class="form-control"></br>
 
       <label>Active</label></br>
-      <input type="text" name="active" id="address" class="form-control"></br>
+      <input value="1" type="checkbox" id="active" class="form-check" name="active"></br>
       
       <label>Status</label></br>
       <input type="text" name="status" id="address" class="form-control"></br>
+
+      <label>Feature</label></br>
+      <input value="0" type="checkbox" id="featured" class="form-check" name="featured">
 
 
       <label>image</label></br>
@@ -60,12 +59,36 @@
 
 @section('script');
 <script>
-  $(document).ready(function() {
-    $("#category").change(function() {
-        let catid = $(this).val();
-        alert(catid);
+  function decorate_subcat(d) {
+        // console.log(d);
+        $h = "<option value='-1'>Select</option>";
+        for (const k in d) {
+            $h += "<option value='" + k + "'>" + d[k] + "</option>";
+        }
+        $("#subcategory_id").html($h);
+    }
+
+    $(document).ready(function() {
+        $("#category_id").change(function() {
+            let id = $(this).val();
+
+            if (id == "-1") {
+                return;
+            }
+            let url = "{{url('getsubcat')}}/" + id;
+            // alert(url);
+            // alert(id);
+            $.get(url, {}, function(d) {
+
+                decorate_subcat(d);
+            });
+
+
+        })
+        
     });
-  });
 </script>
+
+
 @endsection
 <!-- php artisan storage:link -->

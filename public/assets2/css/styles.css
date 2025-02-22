@@ -11241,3 +11241,22 @@ body {
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
 }
+
+/* -----------serchbox---------- */
+.input-icons{
+  position: relative;
+
+}
+
+.input-icons .icons {
+  position: absolute;
+  top: 37%;
+  left: 10px;
+
+}
+.input-field{
+  padding: 10px;
+  padding-left: 30px;
+  
+}
+
